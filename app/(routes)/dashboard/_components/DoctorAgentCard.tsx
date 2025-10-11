@@ -9,8 +9,9 @@ export type doctorAgent={
     description:string,
     image:string,
     agentPrompt:string,
-    voiceId:string,
-    subscriptionRequired:boolean
+    voiceId?:string,
+    subscriptionRequired:boolean,
+    gender:string
 }
 type props={
     doctorAgent:doctorAgent

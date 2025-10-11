@@ -1,7 +1,7 @@
 import { db } from "@/config/db";
 import { SessionChatTabel } from "@/config/schema";
 import { currentUser } from "@clerk/nextjs/server";
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 import {v4 as uuidv4} from 'uuid'
 
@@ -31,9 +31,19 @@ export async function GET(req:NextRequest){
     const sessionId=searchParams.get('sessionId');
     const user=await currentUser();
 
-    const result=await db.select().from(SessionChatTabel)
+    if(sessionId=='all'){
+            const result=await db.select().from(SessionChatTabel)
+    //@ts-ignore
+    .where(eq(SessionChatTabel.createdBy,user?.primaryEmailAddress?.emailAddress))
+    .orderBy(desc(SessionChatTabel.id))
+    return NextResponse.json(result)
+    }
+    else{
+                const result=await db.select().from(SessionChatTabel)
     //@ts-ignore
     .where(eq(SessionChatTabel.sessionId,sessionId));
 
     return NextResponse.json(result[0])
+    }
+
 }
