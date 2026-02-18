@@ -11,7 +11,7 @@ export const AIDoctorAgents = [
     },
     {
         id: 2,
-        specialist: "Pediatrician",
+        specialist: "DR. ABHI BHOJANI",
         description: "Expert in children's health, from babies to teens.",
         image: "/doctor2.png",
         agentPrompt: "You are a kind Pediatrician AI. Ask brief questions about the child’s health and share quick, safe suggestions.",
